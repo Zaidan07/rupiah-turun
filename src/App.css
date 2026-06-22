@@ -979,3 +979,413 @@ textarea:disabled {
     height: 46px;
   }
 }
+
+/* Mobile polish: make the game feel like a real phone UI */
+@media (max-width: 720px) {
+  :root {
+    --shadow: 0 10px 26px rgba(77, 63, 42, 0.09);
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  body::before {
+    background-size: 26px 26px;
+    opacity: 0.75;
+  }
+
+  .game-page {
+    width: min(100% - 18px, 1180px);
+    padding: 10px 0 calc(24px + env(safe-area-inset-bottom));
+  }
+
+  .hero-card {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 18px;
+    border-radius: 26px;
+  }
+
+  .hero-card::after {
+    right: -70px;
+    top: -110px;
+    width: 210px;
+    height: 210px;
+  }
+
+  .eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.11em;
+  }
+
+  h1 {
+    max-width: 360px;
+    font-size: clamp(2.75rem, 17vw, 4.65rem);
+    line-height: 0.9;
+    letter-spacing: -0.08em;
+  }
+
+  h2 {
+    font-size: 1.18rem;
+  }
+
+  .subtitle {
+    margin-top: 13px;
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .chip-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    margin: 17px -18px 0;
+    padding: 0 18px 4px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .chip-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chip-row span {
+    flex: 0 0 auto;
+    min-height: 34px;
+    padding: 8px 12px;
+    font-size: 0.76rem;
+    white-space: nowrap;
+  }
+
+  .rupiah-badge {
+    min-height: 132px;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .badge-sticker {
+    top: -13px;
+    right: 12px;
+    min-height: 34px;
+    padding: 7px 14px;
+    font-size: 0.68rem;
+    transform: rotate(3deg);
+  }
+
+  .rupiah-badge p {
+    margin-bottom: 6px;
+    font-size: 0.92rem;
+  }
+
+  .rupiah-badge strong {
+    margin-bottom: 6px;
+    font-size: clamp(2.55rem, 13vw, 3.25rem);
+    line-height: 0.96;
+  }
+
+  .rupiah-badge small {
+    font-size: 0.9rem;
+  }
+
+  .stats-grid {
+    display: flex;
+    gap: 10px;
+    margin: 12px -9px 0;
+    padding: 0 9px 6px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .stats-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .stat-card {
+    flex: 0 0 158px;
+    min-height: 82px;
+    padding: 13px;
+    gap: 10px;
+    border-radius: 20px;
+    scroll-snap-align: start;
+  }
+
+  .stat-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 15px;
+    font-size: 1.18rem;
+  }
+
+  .stat-card p {
+    font-size: 0.7rem;
+  }
+
+  .stat-card strong {
+    font-size: 0.88rem;
+  }
+
+  .stat-card small {
+    font-size: 0.66rem;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .chart-panel {
+    order: 1;
+  }
+
+  .action-panel {
+    order: 2;
+  }
+
+  .shop-panel {
+    order: 3;
+  }
+
+  .achievement-panel {
+    order: 4;
+  }
+
+  .log-panel {
+    order: 5;
+  }
+
+  .panel {
+    padding: 16px;
+    border-radius: 24px;
+  }
+
+  .panel-header {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 13px;
+  }
+
+  .target-pill {
+    width: max-content;
+    min-height: 34px;
+    padding: 7px 12px;
+    font-size: 0.7rem;
+  }
+
+  .chart-status-row {
+    margin-bottom: 10px;
+    padding: 7px 11px;
+    font-size: 0.75rem;
+  }
+
+  .chart-box {
+    height: 228px;
+    padding: 6px;
+    border-radius: 20px;
+  }
+
+  .recharts-text {
+    font-size: 0.68rem;
+  }
+
+  .recharts-xAxis .recharts-cartesian-axis-tick:nth-of-type(2n) {
+    display: none;
+  }
+
+  .critique-box {
+    gap: 9px;
+  }
+
+  .critique-box textarea {
+    min-height: 104px;
+    padding: 14px;
+    border-radius: 19px;
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+
+  .critique-box button {
+    min-height: 48px;
+    border-radius: 16px;
+    font-size: 0.94rem;
+  }
+
+  .critique-box small {
+    font-size: 0.78rem;
+  }
+
+  .actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .actions button {
+    min-height: 48px;
+    border-radius: 16px;
+    font-size: 0.9rem;
+  }
+
+  .shop-list,
+  .achievement-list,
+  .log-list {
+    gap: 9px;
+  }
+
+  .shop-item {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 10px;
+    padding: 11px;
+    border-radius: 18px;
+  }
+
+  .item-emoji {
+    width: 44px;
+    height: 44px;
+    border-radius: 16px;
+    font-size: 1.25rem;
+  }
+
+  .shop-item strong {
+    font-size: 0.88rem;
+  }
+
+  .shop-item small {
+    font-size: 0.78rem;
+  }
+
+  .shop-item em {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: 2px;
+    padding: 5px 8px;
+    font-size: 0.62rem;
+  }
+
+  .achievement-card {
+    grid-template-columns: 42px 1fr;
+    min-height: auto;
+    padding: 11px;
+    gap: 10px;
+    border-radius: 18px;
+  }
+
+  .achievement-card > span {
+    width: 42px;
+    height: 42px;
+    border-radius: 15px;
+    font-size: 1.22rem;
+  }
+
+  .achievement-card strong {
+    font-size: 0.84rem;
+  }
+
+  .achievement-card p {
+    font-size: 0.72rem;
+  }
+
+  .achievement-card small {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: -3px;
+    font-size: 0.65rem;
+  }
+
+  .log-list {
+    grid-template-columns: 1fr;
+  }
+
+  .log-list p {
+    padding: 11px 12px;
+    border-radius: 16px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .season-toast {
+    top: auto;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    width: min(430px, calc(100% - 18px));
+    grid-template-columns: 44px 1fr;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 20px;
+  }
+
+  .season-toast > span {
+    width: 44px;
+    height: 44px;
+    border-radius: 15px;
+    font-size: 1.25rem;
+  }
+
+  .season-toast strong {
+    font-size: 0.9rem;
+  }
+
+  .season-toast p {
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  .celebration-overlay,
+  .game-over-overlay {
+    padding: 18px;
+  }
+
+  .celebration-card,
+  .game-over-card {
+    padding: 24px 18px;
+    border-radius: 26px;
+  }
+
+  .celebration-emoji,
+  .game-over-card > span {
+    width: 72px;
+    height: 72px;
+    border-radius: 24px;
+    font-size: 2.45rem;
+  }
+
+  .celebration-card h2,
+  .game-over-card h2 {
+    font-size: 1.55rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .game-page {
+    width: min(100% - 14px, 1180px);
+  }
+
+  h1 {
+    font-size: clamp(2.45rem, 16vw, 3.4rem);
+  }
+
+  .subtitle {
+    font-size: 0.88rem;
+  }
+
+  .stats-grid {
+    margin-inline: -7px;
+    padding-inline: 7px;
+  }
+
+  .stat-card {
+    flex-basis: 146px;
+  }
+
+  .actions {
+    grid-template-columns: 1fr;
+  }
+
+  .rupiah-badge strong {
+    font-size: 2.28rem;
+  }
+}
