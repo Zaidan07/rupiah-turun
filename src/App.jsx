@@ -99,7 +99,8 @@ const seasons = [
     name: "Musim Tanggal Muda",
     short: "Tanggal muda",
     emoji: "💸",
-    notice: "Awal musim, dompet masih sok kuat. Steam KW ikut buka sale kecil-kecilan.",
+    notice:
+      "Awal musim, dompet masih sok kuat. Steam KW ikut buka sale kecil-kecilan.",
   },
   {
     id: "diskon-game",
@@ -269,7 +270,10 @@ export default function App() {
 
   const currentSeason = useMemo(() => getSeason(day), [day]);
   const saleActive = useMemo(() => isSaleWindow(day), [day]);
-  const storeItems = useMemo(() => (saleActive ? gameItems : dailyItems), [saleActive]);
+  const storeItems = useMemo(
+    () => (saleActive ? gameItems : dailyItems),
+    [saleActive],
+  );
 
   const priceMultiplier = useMemo(() => {
     return clamp(rupiah / TARGET_RUPIAH, 0.7, 3.5);
@@ -313,7 +317,10 @@ export default function App() {
   }, []);
 
   const updateRupiah = useCallback(
-    (change, label = formatGameTime(timeRef.current.day, timeRef.current.hour)) => {
+    (
+      change,
+      label = formatGameTime(timeRef.current.day, timeRef.current.hour),
+    ) => {
       const next = clamp(rupiahRef.current + change, 5000, 22000);
 
       rupiahRef.current = next;
@@ -353,20 +360,26 @@ export default function App() {
 
         setMoney((prev) => prev + bonus);
         setMood((prev) => clamp(prev + 8, 0, 100));
-        addLog(`Hari ${nextDay}: gajian kecil cair. Dompet +${formatRupiah(bonus)}.`);
+        addLog(
+          `Hari ${nextDay}: gajian kecil cair. Dompet +${formatRupiah(bonus)}.`,
+        );
         return;
       }
 
       if (nextDay % 5 === 0) {
         updateRupiah(650, formatGameTime(nextDay, 9));
         setMood((prev) => clamp(prev - 7, 0, 100));
-        addLog(`Hari ${nextDay}: harga bahan pokok ngangkat alis. Kurs ikut rewel.`);
+        addLog(
+          `Hari ${nextDay}: harga bahan pokok ngangkat alis. Kurs ikut rewel.`,
+        );
         return;
       }
 
       if (nextDay % 3 === 0) {
         setEnergy((prev) => clamp(prev - 8, 0, 100));
-        addLog(`Hari ${nextDay}: meeting dadakan. Stamina kepotong tanpa persetujuan.`);
+        addLog(
+          `Hari ${nextDay}: meeting dadakan. Stamina kepotong tanpa persetujuan.`,
+        );
       }
     },
     [addLog, showSeasonNotice, updateRupiah],
@@ -447,7 +460,9 @@ export default function App() {
     setEnergy((prev) => clamp(prev - 15, 0, 100));
     setMood((prev) => clamp(prev - 3, 0, 100));
 
-    addLog(`${formatGameTime(nextTime.day, nextTime.hour)}: ngantor dulu. Dompet nambah ${formatRupiah(salary)}.`);
+    addLog(
+      `${formatGameTime(nextTime.day, nextTime.hour)}: ngantor dulu. Dompet nambah ${formatRupiah(salary)}.`,
+    );
   }
 
   function handleRest() {
@@ -459,7 +474,9 @@ export default function App() {
     setMood((prev) => clamp(prev + 2, 0, 100));
     setIntelRisk((prev) => clamp(prev - 8, 0, 100));
 
-    addLog(`${formatGameTime(nextTime.day, nextTime.hour)}: power nap dulu. Stamina naik, radar intel agak lupa arah.`);
+    addLog(
+      `${formatGameTime(nextTime.day, nextTime.hour)}: power nap dulu. Stamina naik, radar intel agak lupa arah.`,
+    );
   }
 
   function getFinalPrice(item) {
@@ -474,12 +491,16 @@ export default function App() {
     const alreadyOwned = item.type === "game" && inventory.includes(item.id);
 
     if (alreadyOwned) {
-      addLog(`${item.name} sudah ada di library. Tenang, nggak usah beli dobel.`);
+      addLog(
+        `${item.name} sudah ada di library. Tenang, nggak usah beli dobel.`,
+      );
       return;
     }
 
     if (!saleActive && item.type !== "game" && rupiah > 20000) {
-      addLog(`${item.name} lagi mahal banget. Dompet langsung pura-pura offline.`);
+      addLog(
+        `${item.name} lagi mahal banget. Dompet langsung pura-pura offline.`,
+      );
       return;
     }
 
@@ -495,11 +516,15 @@ export default function App() {
     setMood((prev) => clamp(prev + (item.type === "game" ? 7 : 4), 0, 100));
 
     if (item.type === "game") {
-      addLog(`${formatGameTime(nextTime.day, nextTime.hour)}: ${item.name} masuk library. Wishlist aman, dompet menipis ${formatRupiah(finalPrice)}.`);
+      addLog(
+        `${formatGameTime(nextTime.day, nextTime.hour)}: ${item.name} masuk library. Wishlist aman, dompet menipis ${formatRupiah(finalPrice)}.`,
+      );
       return;
     }
 
-    addLog(`${formatGameTime(nextTime.day, nextTime.hour)}: ${item.name} berhasil dibungkus. Dompet kepotong ${formatRupiah(finalPrice)}.`);
+    addLog(
+      `${formatGameTime(nextTime.day, nextTime.hour)}: ${item.name} berhasil dibungkus. Dompet kepotong ${formatRupiah(finalPrice)}.`,
+    );
   }
 
   function resetGame() {
@@ -534,7 +559,8 @@ export default function App() {
 
     const interval = setInterval(() => {
       const nextTime = advanceTime(1);
-      const event = randomEvents[Math.floor(Math.random() * randomEvents.length)];
+      const event =
+        randomEvents[Math.floor(Math.random() * randomEvents.length)];
 
       updateRupiah(event.change, formatGameTime(nextTime.day, nextTime.hour));
       setMood((prev) => clamp(prev + event.mood, 0, 100));
@@ -566,7 +592,10 @@ export default function App() {
       newlyUnlocked.push("raja-gorengan");
     }
 
-    if (inventory.some((itemId) => itemId.startsWith("game-")) && !unlocked.includes("wishlist-keangkut")) {
+    if (
+      inventory.some((itemId) => itemId.startsWith("game-")) &&
+      !unlocked.includes("wishlist-keangkut")
+    ) {
       newlyUnlocked.push("wishlist-keangkut");
     }
 
@@ -784,7 +813,10 @@ export default function App() {
 
           <div className="chart-box">
             <ResponsiveContainer width="100%" height={280}>
-              <AreaChart data={history} margin={{ top: 8, right: 8, bottom: 0, left: 0 }}>
+              <AreaChart
+                data={history}
+                margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
+              >
                 <defs>
                   <linearGradient
                     id="rupiahGradient"
@@ -859,13 +891,21 @@ export default function App() {
           </div>
         </article>
 
-        <article className={`panel shop-panel ${saleActive ? "sale-mode" : ""}`}>
+        <article
+          className={`panel shop-panel ${saleActive ? "sale-mode" : ""}`}
+        >
           <div className="panel-header">
             <div>
-              <p className="eyebrow">{saleActive ? "steam kw sale" : "warung bu tini"}</p>
-              <h2>{saleActive ? "Wishlist lagi diskon" : "Sikat sebelum naik"}</h2>
+              <p className="eyebrow">
+                {saleActive ? "steam kw sale" : "warung bu tini"}
+              </p>
+              <h2>
+                {saleActive ? "Wishlist lagi diskon" : "Sikat sebelum naik"}
+              </h2>
             </div>
-            {saleActive && <span className="target-pill sale-pill">awal musim</span>}
+            {saleActive && (
+              <span className="target-pill sale-pill">awal musim</span>
+            )}
           </div>
 
           <div className="shop-list">
@@ -887,7 +927,13 @@ export default function App() {
                     <small>{formatRupiah(finalPrice)}</small>
                   </span>
 
-                  <em>{isOwned ? (item.type === "game" ? "library" : "pernah beli") : item.tag}</em>
+                  <em>
+                    {isOwned
+                      ? item.type === "game"
+                        ? "library"
+                        : "pernah beli"
+                      : item.tag}
+                  </em>
                 </button>
               );
             })}
