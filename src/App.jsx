@@ -267,6 +267,7 @@ export default function App() {
     "Pantau jam, kurs, dan sale musiman. Jangan sampai wishlist menang banyak tapi makan kalah.",
   ]);
   const [history, setHistory] = useState(getInitialHistory);
+  const [activeMobileTab, setActiveMobileTab] = useState("action");
 
   const currentSeason = useMemo(() => getSeason(day), [day]);
   const saleActive = useMemo(() => isSaleWindow(day), [day]);
@@ -716,6 +717,277 @@ export default function App() {
           </div>
         </div>
       )}
+
+
+      <section className="mobile-trading-layout">
+        <header className="mobile-trading-topbar">
+          <div>
+            <span>USD/IDR</span>
+            <strong>{formatRupiah(rupiah)}</strong>
+            <small>{rupiahStatus}</small>
+          </div>
+
+          <div className="mobile-time-pill">
+            <span>{formatGameTime(day, hour)}</span>
+            <small>{currentSeason.short}</small>
+          </div>
+        </header>
+
+        <section className="mobile-chart-card">
+          <div className="mobile-chart-head">
+            <div>
+              <span>Market Watch</span>
+              <strong>{formatRupiah(rupiah)}</strong>
+            </div>
+
+            <div className="mobile-chart-status">
+              {saleActive ? "sale nyala" : rupiahStatus}
+            </div>
+          </div>
+
+          <div className="mobile-chart-box">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart
+                data={history}
+                margin={{ top: 18, right: 4, bottom: 4, left: 0 }}
+              >
+                <defs>
+                  <linearGradient
+                    id="mobileRupiahGradient"
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                  >
+                    <stop offset="5%" stopColor="#22c55e" stopOpacity={0.35} />
+                    <stop offset="95%" stopColor="#22c55e" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+
+                <CartesianGrid
+                  strokeDasharray="4 4"
+                  vertical={false}
+                  stroke="rgba(148, 163, 184, 0.18)"
+                />
+
+                <XAxis
+                  dataKey="time"
+                  axisLine={false}
+                  tickLine={false}
+                  minTickGap={28}
+                  tick={{ fill: "#94a3b8", fontSize: 11, fontWeight: 700 }}
+                />
+
+                <YAxis
+                  orientation="right"
+                  width={46}
+                  axisLine={false}
+                  tickLine={false}
+                  domain={[
+                    (dataMin) =>
+                      Math.max(5000, Math.floor((dataMin - 700) / 500) * 500),
+                    (dataMax) =>
+                      Math.min(22000, Math.ceil((dataMax + 700) / 500) * 500),
+                  ]}
+                  tickFormatter={(value) => `${value / 1000}k`}
+                  tick={{ fill: "#94a3b8", fontSize: 11, fontWeight: 700 }}
+                />
+
+                <Tooltip
+                  formatter={(value) => formatRupiah(value)}
+                  contentStyle={{
+                    border: "1px solid rgba(148, 163, 184, 0.22)",
+                    borderRadius: "14px",
+                    background: "#0f172a",
+                    color: "#e5e7eb",
+                  }}
+                  labelStyle={{ color: "#94a3b8" }}
+                />
+
+                <Area
+                  type="monotone"
+                  dataKey="rupiah"
+                  stroke="#22c55e"
+                  strokeWidth={3}
+                  fill="url(#mobileRupiahGradient)"
+                  dot={false}
+                  activeDot={{ r: 5 }}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </section>
+
+        <section className="mobile-market-bars">
+          <div>
+            <span>Dompet</span>
+            <strong>{formatRupiah(money)}</strong>
+          </div>
+
+          <div>
+            <span>Stamina</span>
+            <strong>{energy}/100</strong>
+          </div>
+
+          <div>
+            <span>Radar</span>
+            <strong>{intelRisk}/100</strong>
+          </div>
+        </section>
+
+        <section className="mobile-tab-panel">
+          {activeMobileTab === "action" && (
+            <div className="mobile-panel-inner">
+              <div className="mobile-panel-title">
+                <span>Bacotin sini</span>
+                <strong>Ketik kan Suaramu</strong>
+              </div>
+
+              <textarea
+                value={critiqueText}
+                onChange={(event) => setCritiqueText(event.target.value)}
+                placeholder="Contoh: Bahlil goblin"
+                disabled={gameOver}
+              />
+
+              <div className="mobile-risk-bar" aria-label="Radar intel">
+                <span style={{ width: `${intelRisk}%` }} />
+              </div>
+
+              <button
+                className="mobile-primary-btn"
+                onClick={handleKritik}
+                disabled={gameOver}
+              >
+                Kirim Kritik
+              </button>
+
+              <div className="mobile-action-row">
+                <button onClick={handleWork} disabled={gameOver}>
+                  Kerja bang
+                </button>
+                <button onClick={handleRest} disabled={gameOver}>
+                  Tido
+                </button>
+              </div>
+            </div>
+          )}
+
+          {activeMobileTab === "shop" && (
+            <div className="mobile-list">
+              <div className="mobile-panel-title">
+                <span>{saleActive ? "steam kw sale" : "warung bu tini"}</span>
+                <strong>
+                  {saleActive ? "Wishlist lagi diskon" : "Sikat sebelum naik"}
+                </strong>
+              </div>
+
+              {storeItems.map((item) => {
+                const finalPrice = getFinalPrice(item);
+                const isOwned = inventory.includes(item.id);
+
+                return (
+                  <button
+                    className="mobile-list-row"
+                    key={item.id}
+                    onClick={() => buyItem(item)}
+                    disabled={gameOver}
+                  >
+                    <span>{item.emoji}</span>
+                    <div>
+                      <strong>{item.name}</strong>
+                      <small>{formatRupiah(finalPrice)}</small>
+                    </div>
+                    <em>
+                      {isOwned
+                        ? item.type === "game"
+                          ? "library"
+                          : "pernah beli"
+                        : item.tag}
+                    </em>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {activeMobileTab === "news" && (
+            <div className="mobile-news-list">
+              <div className="mobile-panel-title">
+                <span>berita hari ini</span>
+                <strong>Apa yang lagi rame?</strong>
+              </div>
+
+              {logs.map((log, index) => (
+                <p key={`${log}-${index}`}>{log}</p>
+              ))}
+            </div>
+          )}
+
+          {activeMobileTab === "achievements" && (
+            <div className="mobile-list">
+              <div className="mobile-panel-title">
+                <span>Kumpulkan</span>
+                <strong>Achievement</strong>
+              </div>
+
+              {achievements.map((achievement) => {
+                const isUnlocked = unlocked.includes(achievement.id);
+
+                return (
+                  <div
+                    className={`mobile-list-row ${
+                      isUnlocked ? "mobile-unlocked" : ""
+                    }`}
+                    key={achievement.id}
+                  >
+                    <span>{achievement.emoji}</span>
+                    <div>
+                      <strong>{achievement.title}</strong>
+                      <small>{isUnlocked ? "kebuka" : "locked"}</small>
+                    </div>
+                    <em>{isUnlocked ? "done" : "..."}</em>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </section>
+
+        <nav className="mobile-bottom-nav" aria-label="Menu mobile">
+          <button
+            className={activeMobileTab === "action" ? "active" : ""}
+            onClick={() => setActiveMobileTab("action")}
+          >
+            <span>📢</span>
+            Bacot
+          </button>
+
+          <button
+            className={activeMobileTab === "shop" ? "active" : ""}
+            onClick={() => setActiveMobileTab("shop")}
+          >
+            <span>🛒</span>
+            Toko
+          </button>
+
+          <button
+            className={activeMobileTab === "news" ? "active" : ""}
+            onClick={() => setActiveMobileTab("news")}
+          >
+            <span>📰</span>
+            Berita
+          </button>
+
+          <button
+            className={activeMobileTab === "achievements" ? "active" : ""}
+            onClick={() => setActiveMobileTab("achievements")}
+          >
+            <span>🏆</span>
+            Lencana
+          </button>
+        </nav>
+      </section>
 
       <section className="hero-card">
         <div className="hero-copy">
