@@ -798,7 +798,7 @@ export default function App() {
 
       <section className="content-grid">
         <article className="panel chart-panel">
-          <div className="panel-header">
+          <div className="panel-header chart-header">
             <div>
               <p className="eyebrow">pantauan kurs</p>
               <h2>Rupiah lagi ngapain?</h2>
@@ -806,9 +806,21 @@ export default function App() {
             <span className="target-pill">mimpi indah: 6 ribu</span>
           </div>
 
-          <div className="chart-status-row">
-            <span>{formatGameTime(day, hour)}</span>
-            <strong>{rupiahStatus}</strong>
+          <div className="chart-live-row">
+            <div className="chart-live-main">
+              <span>Kurs sekarang</span>
+              <strong>{formatRupiah(rupiah)}</strong>
+            </div>
+
+            <div>
+              <span>Waktu</span>
+              <strong>{formatGameTime(day, hour)}</strong>
+            </div>
+
+            <div>
+              <span>Rasanya</span>
+              <strong>{rupiahStatus}</strong>
+            </div>
           </div>
 
           <div className="chart-box">

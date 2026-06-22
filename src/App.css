@@ -1726,3 +1726,88 @@ textarea:disabled {
     height: 210px;
   }
 }
+
+.chart-header {
+  margin-bottom: 12px;
+}
+
+.chart-live-row {
+  display: grid;
+  grid-template-columns: 1.1fr 0.8fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.chart-live-row > div {
+  padding: 12px 14px;
+  border: 2px solid rgba(89, 75, 52, 0.12);
+  border-radius: 18px;
+  background: rgba(255, 247, 215, 0.78);
+  box-shadow: inset 0 -2px 0 rgba(120, 100, 55, 0.07);
+}
+
+.chart-live-row span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.chart-live-row strong {
+  display: block;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+}
+
+.chart-live-row > div:first-child strong {
+  color: var(--green);
+  font-size: 1.25rem;
+}
+
+.chart-box {
+  height: 250px;
+  margin-top: 0;
+}
+
+@media (max-width: 768px) {
+  .chart-panel {
+    padding-top: 18px;
+  }
+
+  .chart-header {
+    margin-bottom: 10px;
+  }
+
+  .chart-live-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .chart-live-row > div {
+    padding: 11px 13px;
+    border-radius: 16px;
+  }
+
+  .chart-live-row span {
+    font-size: 0.7rem;
+  }
+
+  .chart-live-row strong {
+    font-size: 0.9rem;
+  }
+
+  .chart-live-row > div:first-child strong {
+    font-size: 1.45rem;
+  }
+
+  .chart-box {
+    height: 220px;
+    padding: 4px;
+    border-radius: 18px;
+  }
+}
