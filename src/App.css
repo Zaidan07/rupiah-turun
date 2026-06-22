@@ -1811,3 +1811,251 @@ textarea:disabled {
     border-radius: 18px;
   }
 }
+
+.mobile-hud {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .game-page {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .hero-card {
+    padding: 18px;
+    border-radius: 24px;
+  }
+
+  .hero-card h1 {
+    font-size: clamp(2.45rem, 13vw, 3.45rem);
+    line-height: 0.92;
+  }
+
+  .subtitle,
+  .chip-row {
+    display: none;
+  }
+
+  .rupiah-badge {
+    display: none;
+  }
+
+  .mobile-hud {
+    position: sticky;
+    top: 8px;
+    z-index: 20;
+    display: grid;
+    grid-template-columns: 1.25fr 1fr 0.8fr;
+    gap: 8px;
+    margin: 10px 0;
+  }
+
+  .mobile-hud-main,
+  .mobile-hud-item {
+    border: 2px solid rgba(89, 75, 52, 0.14);
+    border-radius: 18px;
+    background: rgba(255, 250, 241, 0.92);
+    box-shadow: 0 12px 28px rgba(77, 63, 42, 0.1);
+    backdrop-filter: blur(12px);
+  }
+
+  .mobile-hud-main {
+    padding: 12px;
+  }
+
+  .mobile-hud-item {
+    padding: 12px 10px;
+  }
+
+  .mobile-hud span,
+  .mobile-hud small {
+    display: block;
+    color: var(--muted);
+    font-size: 0.68rem;
+    font-weight: 800;
+  }
+
+  .mobile-hud strong {
+    display: block;
+    margin-top: 3px;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+  }
+
+  .mobile-hud-main strong {
+    color: var(--green);
+    font-size: 1.25rem;
+  }
+
+  .mobile-hud-main small {
+    margin-top: 4px;
+  }
+
+  .stats-grid {
+    display: none;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .panel {
+    padding: 16px;
+    border-radius: 22px;
+  }
+
+  .panel-header {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+  }
+
+  h2 {
+    font-size: 1.35rem;
+  }
+
+  .target-pill {
+    display: none;
+  }
+
+  .chart-status-row {
+    display: none;
+  }
+
+  .chart-live-row {
+    display: none;
+  }
+
+  .chart-box {
+    height: 210px;
+    padding: 4px;
+    border-radius: 18px;
+  }
+
+  .recharts-text {
+    font-size: 0.64rem;
+  }
+
+  .action-panel {
+    order: -1;
+  }
+
+  .chart-panel {
+    order: 0;
+  }
+
+  .shop-panel {
+    order: 1;
+  }
+
+  .achievement-panel {
+    order: 2;
+  }
+
+  .log-panel {
+    order: 3;
+  }
+
+  .critique-box textarea {
+    min-height: 96px;
+    padding: 13px;
+    border-radius: 18px;
+    font-size: 0.9rem;
+  }
+
+  .critique-box button,
+  .actions button {
+    min-height: 46px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+  }
+
+  .actions {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .shop-list,
+  .achievement-list,
+  .log-list {
+    gap: 8px;
+  }
+
+  .shop-item {
+    grid-template-columns: 42px minmax(0, 1fr);
+    padding: 10px;
+    border-radius: 18px;
+  }
+
+  .item-emoji {
+    width: 42px;
+    height: 42px;
+    border-radius: 15px;
+    font-size: 1.2rem;
+  }
+
+  .shop-item strong {
+    font-size: 0.86rem;
+  }
+
+  .shop-item small {
+    font-size: 0.76rem;
+  }
+
+  .achievement-card {
+    grid-template-columns: 40px minmax(0, 1fr);
+    padding: 10px;
+    border-radius: 18px;
+  }
+
+  .achievement-card > span {
+    width: 40px;
+    height: 40px;
+    font-size: 1.15rem;
+  }
+
+  .achievement-card p {
+    display: none;
+  }
+
+  .achievement-card small {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .log-list p {
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .mobile-hud {
+    grid-template-columns: 1fr;
+  }
+
+  .mobile-hud-main,
+  .mobile-hud-item {
+    padding: 11px;
+  }
+
+  .actions {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-box {
+    height: 195px;
+  }
+}

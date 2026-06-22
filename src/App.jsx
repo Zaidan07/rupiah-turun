@@ -742,6 +742,24 @@ export default function App() {
         </div>
       </section>
 
+      <section className="mobile-hud">
+        <div className="mobile-hud-main">
+          <span>Kurs</span>
+          <strong>{formatRupiah(rupiah)}</strong>
+          <small>{rupiahStatus}</small>
+        </div>
+
+        <div className="mobile-hud-item">
+          <span>Dompet</span>
+          <strong>{formatRupiah(money)}</strong>
+        </div>
+
+        <div className="mobile-hud-item">
+          <span>Jam</span>
+          <strong>{formatGameTime(day, hour)}</strong>
+        </div>
+      </section>
+
       <section className="stats-grid">
         <article className="stat-card">
           <span className="stat-icon">💵</span>
