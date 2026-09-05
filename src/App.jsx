@@ -1276,7 +1276,7 @@ export default function App() {
         <article className="panel log-panel">
           <div className="panel-header">
             <div>
-              <p className="eyebrow">berita hari ini</p>
+              <p className="eyebrow">berita hari ini, Heboh!</p>
               <h2>Apa yang lagi rame?</h2>
             </div>
           </div>
